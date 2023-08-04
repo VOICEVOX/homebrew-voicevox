@@ -1,2 +1,1 @@
-# homebrew-voicevox
-HomebrewでVOICEVOXを
+HomebrewでVOICEVOXをインストールできるようにするリポジトリです。
