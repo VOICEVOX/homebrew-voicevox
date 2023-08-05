@@ -13,7 +13,7 @@ jobs:
         with:
           # Required, custom GitHub access token with only the 'public_repo' scope enabled
           token: ${{ secrets.BUMP_CASK_TOKEN }}
-          tap: umi1299/voicevox
+          tap: VOICEVOX/voicevox
           cask: voicevox, voicevox-preview
           livecheck: true
           dryrun: false
