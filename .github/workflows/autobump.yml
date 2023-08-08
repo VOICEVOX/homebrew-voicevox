@@ -1,0 +1,19 @@
+name: Bump casks on schedule
+
+on:
+  schedule:
+    # Every day at 5 am (UTC)
+    - cron: "0 5 * * *"
+
+jobs:
+  bump-casks:
+    runs-on: macos-latest
+    steps:
+      - uses: macauley/action-homebrew-bump-cask@v1.0.0
+        with:
+          # Required, custom GitHub access token with only the 'public_repo' scope enabled
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tap: VOICEVOX/voicevox
+          cask: voicevox, voicevox-preview
+          livecheck: true
+          dryrun: false
