@@ -12,7 +12,7 @@ jobs:
       - uses: macauley/action-homebrew-bump-cask@v1.0.0
         with:
           # Required, custom GitHub access token with only the 'public_repo' scope enabled
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BUMP_CASK_TOKEN }}
           tap: VOICEVOX/voicevox
           cask: voicevox, voicevox-preview
           livecheck: true
