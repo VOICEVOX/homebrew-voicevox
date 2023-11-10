@@ -19,4 +19,12 @@ cask "voicevox-dev" do
   ]
 
   app "VOICEVOX.app"
+
+  zap trash: [
+    "~/Library/Application Support/voicevox",
+    "~/Library/Application Support/voicevox-engine",
+    "~/Library/Logs/voicevox",
+    "~/Library/Preferences/jp.hiroshiba.voicevox.plist",
+    "~/Library/Saved Application State/jp.hiroshiba.voicevox.savedState",
+  ]
 end
