@@ -13,7 +13,10 @@ cask "voicevox" do
     strategy :github_latest
   end
 
-  conflicts_with cask: "voicevox-preview"
+  conflicts_with cask: [
+    "voicevox-dev",
+    "voicevox-preview",
+  ]
 
   app "VOICEVOX.app"
 

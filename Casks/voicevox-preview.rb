@@ -13,7 +13,10 @@ cask "voicevox-preview" do
     regex(/(\d+(?:\.\d+)*-preview\.\d+)$/i)
   end
 
-  conflicts_with cask: "voicevox"
+  conflicts_with cask: [
+    "voicevox",
+    "voicevox-dev",
+  ]
 
   app "VOICEVOX.app"
 
