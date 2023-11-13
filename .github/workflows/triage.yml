@@ -21,6 +21,7 @@ permissions:
 jobs:
   triage:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'Hiroshiba'
     steps:
       - name: Check commit format
         uses: Homebrew/actions/check-commit-format@master
