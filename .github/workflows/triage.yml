@@ -1,6 +1,7 @@
 # triage.yml
 #
 # Copyright © 2013, Paul Hinze & Contributors
+# Copyright © 2023, Umi
 #
 # This software is released under the BSD 2-Clause "Simplified" License.
 # see https://github.com/Homebrew/homebrew-cask/blob/3bbdaf2b31/LICENSE
@@ -24,35 +25,12 @@ jobs:
       - name: Check commit format
         uses: Homebrew/actions/check-commit-format@master
         with:
-          token: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
+          token: ${{ secrets.BUMP_CASK_TOKEN }}
       - name: Label pull request
         uses: Homebrew/actions/label-pull-requests@master
         if: always()
         with:
-          token: ${{secrets.HOMEBREW_GITHUB_PUBLIC_REPO_TOKEN}}
+          token: ${{ secrets.BUMP_CASK_TOKEN }}
           def: |
-            - label: new cask
-              status: added
-              path: Casks/.+
-
-            - label: marked for removal/rejection
-              status: removed
-              path: Casks/.+
-
-            - label: documentation
-              path: (.*\.md|\.github/ISSUE_TEMPLATE/.*\.yml)
-
             - label: bump-cask-pr
               pr_body_content: Created with `brew bump-cask-pr`
-
-            - label: missing description
-              path: Casks/.+
-              missing_content: \n  desc .+\n
-
-            - label: appcast migration needed
-              path: Casks/.+
-              content: \n  appcast .+\n
-
-            - label: missing zap
-              path: Casks/.+
-              missing_content: zap .+\n
