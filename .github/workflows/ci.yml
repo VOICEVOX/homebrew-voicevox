@@ -11,9 +11,8 @@ name: CI
 
 on:
   pull_request:
-    paths-ignore:
-      - Casks/*-dev.rb
-      - Casks/*-preview.rb
+    paths:
+      - Casks/voicevox.rb
 
 env:
   HOMEBREW_DEVELOPER: 1
