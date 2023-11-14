@@ -1,0 +1,37 @@
+# triage.yml
+#
+# Copyright © 2013, Paul Hinze & Contributors
+# Copyright © 2023, Umi
+#
+# This software is released under the BSD 2-Clause "Simplified" License.
+# see https://github.com/Homebrew/homebrew-cask/blob/3bbdaf2b31/LICENSE
+
+
+name: Triage tasks
+
+on: pull_request_target
+
+concurrency:
+  group: "triage-${{ github.event.number }}"
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'Hiroshiba'
+    steps:
+      - name: Check commit format
+        uses: Homebrew/actions/check-commit-format@master
+        with:
+          token: ${{ secrets.BUMP_CASK_TOKEN }}
+      - name: Label pull request
+        uses: Homebrew/actions/label-pull-requests@master
+        if: always()
+        with:
+          token: ${{ secrets.BUMP_CASK_TOKEN }}
+          def: |
+            - label: bump-cask-pr
+              pr_body_content: Created with `brew bump-cask-pr`

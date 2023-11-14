@@ -1,0 +1,31 @@
+name: auto-merge
+
+on:
+  pull_request:
+    branches: [ main ]
+    types: [ labeled ]
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.pull_request.user.login == 'Hiroshiba' &&
+      contains(github.event.pull_request.labels.*.name, 'bump-cask-pr')
+    env:
+      PR_URL: ${{github.event.pull_request.html_url}}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Checkout repository with preceding commits
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Approve PR
+        run: gh pr review "$PR_URL" --approve
+
+      - name: Enable auto-merge
+        run: gh pr merge --merge --auto "$PR_URL"
