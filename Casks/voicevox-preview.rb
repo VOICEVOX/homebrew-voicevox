@@ -1,6 +1,6 @@
 cask "voicevox-preview" do
-  version "0.15.0-preview.4"
-  sha256 "b98c292b142b344580f3557c4dc821a9a646e5ca5c9fdaae183eb965fd6b336c"
+  version "0.15.0-preview.5"
+  sha256 "606600fa10d7892b9a602d6a9983d952df3d4a16f5d4e4b61f9268d9029ed221"
 
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
