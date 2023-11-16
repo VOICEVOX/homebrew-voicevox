@@ -28,4 +28,4 @@ jobs:
         run: gh pr review "$PR_URL" --approve
 
       - name: Enable auto-merge
-        run: gh pr merge --merge --auto "$PR_URL"
+        run: gh pr merge --squash --auto "$PR_URL"
