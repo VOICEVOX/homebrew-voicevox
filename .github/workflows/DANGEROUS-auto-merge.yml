@@ -1,9 +1,9 @@
-name: Auto merge
+name: "[DANGEROUS] Auto merge"
 
 on:
   pull_request_target:
-    branches: [ main ]
-    types: [ labeled ]
+    branches: [main]
+    types: [labeled]
 
 permissions:
   pull-requests: write
