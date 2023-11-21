@@ -24,11 +24,11 @@ jobs:
     if: github.event.pull_request.user.login == 'Hiroshiba'
     steps:
       - name: Check commit format
-        uses: Homebrew/actions/check-commit-format@master
+        uses: Homebrew/actions/check-commit-format@f8529d751bbdb8b6444f84c46aa374d66d467931
         with:
           token: ${{ secrets.BUMP_CASK_TOKEN }}
       - name: Label pull request
-        uses: Homebrew/actions/label-pull-requests@master
+        uses: Homebrew/actions/label-pull-requests@f8529d751bbdb8b6444f84c46aa374d66d467931
         if: always()
         with:
           token: ${{ secrets.BUMP_CASK_TOKEN }}
