@@ -8,17 +8,6 @@ on:
 permissions:
   pull-requests: write
   contents: write
-  actions: read
-  checks: read
-  deployments: read
-  id-token: read
-  issues: read
-  discussions: read
-  packages: read
-  pages: read
-  repository-projects: read
-  security-events: read
-  statuses: read
 
 jobs:
   auto-merge:
