@@ -1,0 +1,30 @@
+name: "[DANGEROUS] Detect actions diff"
+
+on: pull_request_target
+
+permissions:
+  pull-requests: write
+
+jobs:
+  detect-actions-diff:
+    runs-on: ubuntu-latest
+    env:
+      PR_URL: ${{ github.event.pull_request.html_url }}
+    steps:
+      - name: Check out Pull Request
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get changed actions
+        id: changed-actions
+        uses: tj-actions/changed-files@v40.1.1
+        with:
+          files: |
+            .github/workflows/*
+
+      - name: Warn if changed actions
+        if: steps.changed-actions.outputs.all_changed_files != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh pr comment "$PR_URL" --body "⚠️ Actionsファイルの変更を検知しました。secretsを外部送信するような差分がないか注意！"
