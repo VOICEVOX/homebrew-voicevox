@@ -1,7 +1,7 @@
-name: "[DANGEROUS] Detect actions diff"
+name: "Detect actions diff"
 
 on:
-  pull_request_target:
+  pull_request:
     paths:
       - .github/workflows/**
 
