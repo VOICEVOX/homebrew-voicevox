@@ -6,7 +6,6 @@
 # This software is released under the BSD 2-Clause "Simplified" License.
 # see https://github.com/Homebrew/homebrew-cask/blob/2477328ebd/LICENSE
 
-
 name: CI
 
 on: pull_request
