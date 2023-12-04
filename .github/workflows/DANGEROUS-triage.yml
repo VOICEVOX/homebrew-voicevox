@@ -6,7 +6,7 @@
 # This software is released under the BSD 2-Clause "Simplified" License.
 # see https://github.com/Homebrew/homebrew-cask/blob/3bbdaf2b31/LICENSE
 
-name: Triage tasks
+name: "[DANGEROUS] Triage tasks"
 
 on: pull_request_target
 
