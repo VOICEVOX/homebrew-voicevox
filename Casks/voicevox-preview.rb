@@ -2,7 +2,7 @@ cask "voicevox-preview" do
   version "0.15.0-preview.5"
   sha256 "606600fa10d7892b9a602d6a9983d952df3d4a16f5d4e4b61f9268d9029ed221"
 
-  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.dmg",
+  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
   name "VOICEVOX"
   desc "Free, medium-quality text-to-speech software"
