@@ -1,6 +1,6 @@
 cask "voicevox" do
-  version "0.16.1"
-  sha256 "8a9f07de00b73e47c6dd203d33e09195d3318ca87694f6304ce2d2d6f311d452"
+  version "0.17.2"
+  sha256 "40fe8eb4e1d9dd462b02bb32d87da4a6a465233cafedbd120ac14ae237490f47"
 
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
