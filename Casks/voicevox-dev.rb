@@ -1,5 +1,5 @@
 cask "voicevox-dev" do
-  version "0.17.0-dev"
+  version "0.18.0-dev"
   sha256 :no_check
 
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg",
