@@ -1,8 +1,9 @@
 cask "voicevox-dev" do
+  arch arm: "arm64", intel: "x64"
   version "0.20.0-dev"
   sha256 :no_check
 
-  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg",
+  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
   name "VOICEVOX"
   desc "Free, medium-quality text-to-speech software"
