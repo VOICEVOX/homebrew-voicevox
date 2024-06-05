@@ -14,8 +14,8 @@ cask "voicevox" do
   end
 
   conflicts_with cask: [
-    "voicevox-dev",
-    "voicevox-preview",
+    "voicevox@dev",
+    "voicevox@preview",
   ]
 
   app "VOICEVOX.app"
