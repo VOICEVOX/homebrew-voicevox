@@ -36,7 +36,7 @@ jobs:
 
       - name: Get changed casks
         id: changed-casks
-        uses: tj-actions/changed-files@v40.1.1
+        uses: tj-actions/changed-files@v44
         with:
           files: |
             Casks/*.rb
@@ -121,7 +121,7 @@ jobs:
 
       - name: Cache Homebrew Gems
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ matrix.runner }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
