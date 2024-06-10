@@ -6,7 +6,7 @@ cask "voicevox-dev" do
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
   name "VOICEVOX"
-  desc "Free, medium-quality text-to-speech software"
+  desc "Free, medium-quality text-to-speech and singing synthesizer software"
   homepage "https://voicevox.hiroshiba.jp/"
 
   livecheck do
