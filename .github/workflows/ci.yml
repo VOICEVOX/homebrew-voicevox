@@ -3,7 +3,7 @@
 # Copyright © 2013, Paul Hinze & Contributors
 #
 # This software is released under the BSD 2-Clause "Simplified" License.
-# see https://github.com/Homebrew/homebrew-cask/blob/2103d0407a/LICENSE
+# see https://github.com/Homebrew/homebrew-cask/blob/77b7cd3856378b5a582a6aec7c5531fa83735e88/LICENSE
 #
 # Modified by VOICEVOX
 
@@ -78,32 +78,35 @@ jobs:
           persist-credentials: false
 
       - name: Clean up CI machine
+        if: runner.os == 'macOS'
         run: |
           if [ "${{ matrix.runner }}" == 'macos-12' ] && ! brew uninstall --cask julia && ! rm -r /Applications/Julia-*.app; then
             echo '::warning::Removing Julia is no longer necessary.'
           fi
 
+          if ! rm /usr/local/bin/dotnet; then
+            echo "::warning::Removing \`dotnet\` symlink is no longer necessary."
+          fi
+
+          if ! rm /usr/local/bin/pod; then
+            echo "::warning::Removing \`cocoapods\` symlink is no longer necessary."
+          fi
+
+          if ! rm /usr/local/bin/chromedriver; then
+            echo "::warning::Removing \`chromedriver\` symlink is no longer necessary."
+          fi
+
+          brew unlink python && brew link --overwrite python
+
+      - name: Clean up Mono from CI machine
+        if: matrix.runner != 'macos-14' && matrix.arch != 'arm'
+        run: |
           if ! rm /usr/local/share/man/man1/al.1 || \
              ! sudo rm /etc/paths.d/mono-commands || \
              ! sudo rm -r /Library/Frameworks/Mono.framework || \
              ! sudo pkgutil --forget com.xamarin.mono-MDK.pkg; then
             echo '::warning::Uninstalling Mono is no longer necessary.'
           fi
-
-          if ! rm /usr/local/bin/dotnet; then
-            echo '::warning::Removing `dotnet` symlink is no longer necessary.'
-          fi
-
-          if ! rm /usr/local/bin/pod; then
-            echo '::warning::Removing `cocoapods` symlink is no longer necessary.'
-          fi
-
-          if ! rm /usr/local/bin/chromedriver; then
-            echo '::warning::Removing `chromedriver` symlink is no longer necessary.'
-          fi
-
-          brew unlink python && brew link --overwrite python
-        if: runner.os == 'macOS'
 
       - name: Cache Homebrew Gems
         id: cache
@@ -112,6 +115,14 @@ jobs:
           path: ${{ steps.set-up-homebrew.outputs.gems-path }}
           key: ${{ matrix.runner }}-rubygems-${{ steps.set-up-homebrew.outputs.gems-hash }}
           restore-keys: ${{ matrix.runner }}-rubygems-
+
+      - name: Cache style cache
+        if: runner.os == 'macOS'
+        uses: actions/cache@v4
+        with:
+          path: ~/Library/Caches/Homebrew/style
+          key: macos-style-cache-${{ github.sha }}
+          restore-keys: macos-style-cache-
 
       - name: Run brew test-bot --only-tap-syntax
         id: tap-syntax

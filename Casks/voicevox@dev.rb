@@ -1,5 +1,6 @@
 cask "voicevox@dev" do
   arch arm: "arm64", intel: "x64"
+
   version "0.20.0-dev"
   sha256 :no_check
 
