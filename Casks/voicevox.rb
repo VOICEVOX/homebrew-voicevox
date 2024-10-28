@@ -1,9 +1,9 @@
 cask "voicevox" do
   arch arm: "arm64", intel: "x64"
 
-  version "0.20.0"
-  sha256 arm:   "6e8caeb34575c94349b8667756b7f6811dd739c2d12c8845156507343fe76cf2",
-         intel: "8b93629fcd1d89ab64bc9aba4966d46a17108559c1340800cd642c9cbbe14586"
+  version "0.21.1"
+  sha256 arm:   "ea3ee5f1bb3c290147b7924c0ddf764908b47c40355ff9d12a831073fb1f9626",
+         intel: "bcc341e313bf501bcb55c7cfacb4c79979276e7a82df478575ff92cc6c9f947d"
 
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
       verified: "github.com/VOICEVOX/voicevox/"
