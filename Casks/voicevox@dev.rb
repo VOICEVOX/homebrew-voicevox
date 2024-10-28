@@ -1,7 +1,7 @@
 cask "voicevox@dev" do
   arch arm: "arm64", intel: "x64"
 
-  version "0.21.0-dev"
+  version "0.22.0-dev"
   sha256 :no_check
 
   url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
