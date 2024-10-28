@@ -46,7 +46,16 @@ jobs:
 
       - name: Generate CI matrix
         id: generate-matrix
-        run: brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" --url="${{ github.event.pull_request.url }}"
+        run: |
+          if [[ "${GITHUB_EVENT_NAME}" == "workflow_dispatch" ]]
+          then
+            brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" ${{ github.event.inputs.skip_install && '--skip-install' }} ${{ github.event.inputs.new_cask && '--new' }} --casks="$INPUT_CASKS"
+          elif [[ "${GITHUB_EVENT_NAME}" == "push" ]]
+          then
+            brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" --syntax-only
+          else
+            brew ruby -- "$(brew --repository homebrew/cask)/cmd/lib/generate-matrix.rb" --url="${{ github.event.pull_request.url }}"
+          fi
 
   test:
     name: ${{ matrix.name }}
@@ -79,34 +88,7 @@ jobs:
 
       - name: Clean up CI machine
         if: runner.os == 'macOS'
-        run: |
-          if [ "${{ matrix.runner }}" == 'macos-12' ] && ! brew uninstall --cask julia && ! rm -r /Applications/Julia-*.app; then
-            echo '::warning::Removing Julia is no longer necessary.'
-          fi
-
-          if ! rm /usr/local/bin/dotnet; then
-            echo "::warning::Removing \`dotnet\` symlink is no longer necessary."
-          fi
-
-          if ! rm /usr/local/bin/pod; then
-            echo "::warning::Removing \`cocoapods\` symlink is no longer necessary."
-          fi
-
-          if ! rm /usr/local/bin/chromedriver; then
-            echo "::warning::Removing \`chromedriver\` symlink is no longer necessary."
-          fi
-
-          brew unlink python && brew link --overwrite python
-
-      - name: Clean up Mono from CI machine
-        if: matrix.runner != 'macos-14' && matrix.arch != 'arm'
-        run: |
-          if ! rm /usr/local/share/man/man1/al.1 || \
-             ! sudo rm /etc/paths.d/mono-commands || \
-             ! sudo rm -r /Library/Frameworks/Mono.framework || \
-             ! sudo pkgutil --forget com.xamarin.mono-MDK.pkg; then
-            echo '::warning::Uninstalling Mono is no longer necessary.'
-          fi
+        run: brew test-bot --cleanup --only-cleanup-before
 
       - name: Cache Homebrew Gems
         id: cache
@@ -159,10 +141,11 @@ jobs:
 
             cask = Cask::CaskLoader.load('${{ matrix.cask.path }}')
 
-            was_installed = cask.installed?
-            manual_installer = cask.artifacts.any? { |artifact|
-              artifact.is_a?(Cask::Artifact::Installer::ManualInstaller)
-            }
+            manual_installer = cask.artifacts.any? do |artifact|
+              if defined?(artifact.manual_install)
+                artifact.manual_install
+              end
+            end
 
             macos_requirement_satisfied = if macos_requirement = cask.depends_on.macos
               macos_requirement.satisfied?
@@ -180,7 +163,6 @@ jobs:
             formula_dependencies = cask_and_formula_dependencies.select { |d| d.is_a?(Formula) }.map(&:full_name)
 
             File.open(ENV.fetch("GITHUB_OUTPUT"), "a") do |f|
-              f.puts "was_installed=#{JSON.generate(was_installed)}"
               f.puts "manual_installer=#{JSON.generate(manual_installer)}"
               f.puts "macos_requirement_satisfied=#{JSON.generate(macos_requirement_satisfied)}"
               f.puts "cask_conflicts=#{JSON.generate(cask_conflicts)}"
@@ -203,10 +185,10 @@ jobs:
         if: always() && steps.info.outcome == 'success' && join(fromJSON(steps.info.outputs.cask_conflicts)) != ''
         timeout-minutes: 30
 
-      - name: Run brew uninstall --cask --zap ${{ matrix.cask.token }}
+      - name: Run brew uninstall --cask --force --zap ${{ matrix.cask.token }}
         run: |
-          brew uninstall --cask --zap '${{ matrix.cask.path }}'
-        if: always() && steps.info.outcome == 'success' && fromJSON(steps.info.outputs.was_installed)
+          brew uninstall --cask --force --zap '${{ matrix.cask.path }}'
+        if: always() && steps.info.outcome == 'success'
         timeout-minutes: 30
 
       - name: Take snapshot of installed and running apps and services
