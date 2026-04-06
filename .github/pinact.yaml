@@ -7,4 +7,4 @@ files:
 
 ignore_actions:
   - name: Homebrew/actions/setup-homebrew
-    ref: master
+    ref: main
