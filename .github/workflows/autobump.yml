@@ -9,7 +9,7 @@ jobs:
   bump-casks:
     runs-on: macos-latest
     steps:
-      - uses: macauley/action-homebrew-bump-cask@v1.0.0
+      - uses: macauley/action-homebrew-bump-cask@445c42390d790569d938f9068d01af39ca030feb # v1.0.0
         with:
           # Required, custom GitHub access token with only the 'public_repo' scope enabled
           token: ${{ secrets.BUMP_CASK_TOKEN }}
