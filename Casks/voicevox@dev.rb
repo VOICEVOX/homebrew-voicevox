@@ -4,8 +4,7 @@ cask "voicevox@dev" do
   version "0.23.0-dev"
   sha256 :no_check
 
-  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
-      verified: "github.com/VOICEVOX/voicevox/"
+  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg"
   name "VOICEVOX"
   desc "Free, medium-quality text-to-speech and singing synthesizer software"
   homepage "https://voicevox.hiroshiba.jp/"

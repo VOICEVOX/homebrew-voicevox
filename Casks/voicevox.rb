@@ -5,8 +5,7 @@ cask "voicevox" do
   sha256 arm:   "426eeae6129efd8651c5a9238c38c8b2a2db988599c2bb592112cedeead49220",
          intel: "b94dd4f49da04e93bae6b533979d08259d488beebf704dfea40fa5d7cc845074"
 
-  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg",
-      verified: "github.com/VOICEVOX/voicevox/"
+  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}-#{arch}.dmg"
   name "VOICEVOX"
   desc "Free, medium-quality text-to-speech and singing synthesizer software"
   homepage "https://voicevox.hiroshiba.jp/"
