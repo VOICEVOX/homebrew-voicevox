@@ -2,8 +2,7 @@ cask "voicevox@preview" do
   version "0.16.0-preview.1"
   sha256 "14b48d4a3723fd9fc211e5c350f7563b56613ab981258038c3fda302acb17f0b"
 
-  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg",
-      verified: "github.com/VOICEVOX/voicevox/"
+  url "https://github.com/VOICEVOX/voicevox/releases/download/#{version}/VOICEVOX.#{version}.dmg"
   name "VOICEVOX"
   desc "Free, medium-quality text-to-speech and singing synthesizer software"
   homepage "https://voicevox.hiroshiba.jp/"
