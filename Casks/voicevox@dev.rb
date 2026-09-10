@@ -19,6 +19,7 @@ cask "voicevox@dev" do
     "voicevox",
     "voicevox@preview",
   ]
+  depends_on :macos
 
   app "VOICEVOX.app"
 
